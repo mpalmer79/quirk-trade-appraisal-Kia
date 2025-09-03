@@ -1,6 +1,5 @@
 # Quirk Kia — Sight-Unseen Trade-In Appraisal
 
-This is a clone of the CDJR Marshfield trade tool retargeted for **Quirk Kia**.
 
 ## What was changed automatically
 - All obvious dealership names and URLs retargeted to **Quirk Kia** and **https://www.quirkkia.com/**.
