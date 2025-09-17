@@ -3,20 +3,34 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title data-i18n="successTitle">Thanks! - Quirk Kia Dorchester</title>
+  <title data-i18n="successTitle">Thanks! - Quirk Kia Braintree</title>
   <link rel="stylesheet" href="/assets/styles.css" />
   <style>
+    /* Watermark background */
     body {
-      background: url('/assets/quirk-lot.png') no-repeat center center fixed;
-      background-size: cover;
-      opacity: 0.35;
+      position: relative;
+      min-height: 100vh;
+      margin: 0;
+      background: #f6f7f8; /* fallback color */
+      overflow-x: hidden;
     }
+    body::before {
+      content: "";
+      position: fixed;      /* cover viewport, not the scrolling page */
+      inset: 0;
+      background: url("/assets/quirk-lot.png") no-repeat center center / cover;
+      opacity: 0.35;        /* adjust visibility of the watermark */
+      z-index: 0;           /* sit behind everything */
+      pointer-events: none; /* avoid intercepting clicks */
+    }
+
+    /* Opaque card */
     main {
       position: relative;
       z-index: 1;
       max-width: 720px;
       margin: 40px auto;
-      background: #fff;
+      background: #fff;     /* 100% opaque white */
       padding: 24px;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -29,7 +43,7 @@
       Thank you!
     </h1>
     <p style="text-align:center;font-size:16px" data-i18n="successMessage">
-      We received your trade-in details. A Quirk Kia Kia specialist will contact you shortly.
+      We received your trade-in details. A Quirk Kia specialist will contact you shortly.
     </p>
 
     <div style="display:flex;gap:10px;justify-content:center;margin-top:18px">
