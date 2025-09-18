@@ -12,41 +12,45 @@
 <style>
   @media (max-width: 640px) {
     .header-title{
-      display:flex;              /* enable clean stacking on phones */
-      flex-direction:column;     /* logo on top, title underneath */
+      display:flex;              /* stack on phones */
+      flex-direction:column;     /* logo on top, title under it */
       align-items:center;        /* center horizontally */
-      text-align:center;         /* center the title text */
+      text-align:center;         /* center title text */
       gap:10px;
     }
     .header-title .branding{
       width:100%;
       display:flex;
-      justify-content:center;    /* center the green QUIRK logo */
+      justify-content:center;    /* center the green QUIRK logo block */
       margin:0;
     }
     #quirkBrand{
       margin:0 auto;             /* ensure centered */
-      max-width:220px;           /* keep the logo from getting too large */
+      max-width:220px;           /* keep logo reasonable */
     }
     .header-title h1{
-      margin:0;                  /* tighten spacing below the logo */
+      margin:0;                  /* tighten spacing under the logo */
       line-height:1.2;
-      text-align:center;
     }
   }
 </style>
 </head>
-<body>
+<body style="
+  /* Watermark background at ~80% image strength (20% white overlay) */
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(255,255,255,.20), rgba(255,255,255,.20)),
+    url('/assets/quirk-lot3.webp') center / cover no-repeat fixed;
+">
 <!-- 
-    Final Version:
-    1. The 'netlify' attribute tells Netlify to process the form.
-    2. The 'action="/success/index.html"' attribute now points directly to the success file.
-  -->
+    Netlify form:
+    - Netlify will process (honeypot + serverless function)
+-->
 <form action="/.netlify/functions/trade-appraisal" enctype="multipart/form-data" id="tradeForm" method="post" netlify-honeypot="company">
-  <!-- This is the honeypot field to catch bots -->
+  <!-- Honeypot field -->
   <input autocomplete="off" name="company" style="position:absolute; left:-10000px; opacity:0; height:0; width:0;" tabindex="-1" type="text"/>
 
-  <!-- These hidden fields will be populated by app.js -->
+  <!-- Populated by app.js -->
   <input id="referrer" name="referrer" type="hidden"/>
   <input id="landingPage" name="landingPage" type="hidden"/>
   <input id="utmSource" name="utmSource" type="hidden"/>
@@ -63,7 +67,7 @@
     <h1 data-i18n="title">Sight Unseen Trade-In Appraisal</h1>
   </div>
 
-  <p class="lead welcome text" data-i18n="welcome">Welcome to the Quirk Kia Kia Sight Unseen Appraisal Program</p>
+  <p class="lead welcome text" data-i18n="welcome">Welcome to Quirk Kia’s Sight Unseen Appraisal Program</p>
   <p data-i18n="instructions">Please fill out this form with accurate and complete details about your vehicle. The trade-in value we provide will be honored as long as the vehicle condition matches your answers. We'll verify everything when you bring the vehicle in. If the condition differs, the offer will be adjusted accordingly.</p>
 
   <div class="utilitybar">
@@ -78,12 +82,10 @@
 
   <div class="section">
     <h2 data-i18n="aboutYou">Tell us about Yourself</h2>
-
     <div class="row">
       <div>
         <label class="req" data-i18n="nameLabel" for="name">Full Name</label>
         <input autocomplete="name" id="name" name="name" required type="text"/>
-
         <div>
           <label class="req" data-i18n="phoneLabel" for="phone">Phone Number</label>
           <div class="phone-wrapper">
@@ -97,7 +99,7 @@
         <label class="req" data-i18n="emailLabel" for="email">Email Address</label>
         <input autocomplete="email" id="email" name="email" required type="email"/>
 
-        <!-- Sales consultant field sits directly UNDER the email field (same column) -->
+        <!-- Sales consultant (optional) -->
         <label for="salesConsultant" data-i18n="consultantLabel">Who is your sales consultant?</label>
         <input
           id="salesConsultant"
@@ -202,25 +204,18 @@
   <fieldset class="section">
     <legend class="visually-hidden">Vehicle Condition</legend>
     <h2 data-i18n="vehCondition">Tell us about your Vehicle</h2>
-
     <label data-i18n="warnings" for="warnings">Any warning lights on dashboard?</label>
     <select id="warnings" name="warnings"><option>No</option><option>Yes</option></select>
-
     <label data-i18n="mech" for="mech">Mechanical issues</label>
     <textarea id="mech" name="mech" rows="3"></textarea>
-
     <label data-i18n="cosmetic" for="cosmetic">Cosmetic issues</label>
     <textarea id="cosmetic" name="cosmetic" rows="3"></textarea>
-
     <label data-i18n="interior" for="interior">Interior clean and damage-free?</label>
     <textarea id="interior" name="interior" rows="2"></textarea>
-
     <label data-i18n="mods" for="mods">Aftermarket parts or modifications?</label>
     <textarea id="mods" name="mods" rows="2"></textarea>
-
     <label data-i18n="smells" for="smells">Unusual smells?</label>
     <textarea id="smells" name="smells" rows="2"></textarea>
-
     <label data-i18n="service" for="service">Routine services up to date?</label>
     <textarea id="service" name="service" rows="2"></textarea>
   </fieldset>
@@ -228,7 +223,6 @@
   <fieldset class="section">
     <legend class="visually-hidden">Wearable Items Check</legend>
     <h2 data-i18n="wearables">Wearable Items Check</h2>
-
     <div class="row">
       <div>
         <label data-i18n="tires" for="tires">Tire Condition</label>
@@ -249,7 +243,6 @@
         </select>
       </div>
     </div>
-
     <label data-i18n="wearOther" for="wear">Other Wear Items (issues?)</label>
     <textarea id="wear" name="wear" rows="2"></textarea>
   </fieldset>
@@ -257,7 +250,6 @@
   <fieldset class="section">
     <legend class="visually-hidden">Photo Uploads</legend>
     <h2 data-i18n="photos">Photo Uploads (Optional)</h2>
-
     <label data-i18n="photosExterior">Exterior Photos</label>
     <input accept="image/*" id="photoExterior" multiple name="photoExterior" type="file"/>
     <div aria-live="polite" class="preview-grid" id="prevExterior"></div>
